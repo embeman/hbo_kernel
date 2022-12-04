@@ -7,11 +7,27 @@ ROOT_DIR=/home/mohamed/Projects/os/project-1/
 FILES = ./build/kernel/kernel.asm.o ./build/kernel/kernel.o ./build/fs/pparse.o ./build/vga/vga.o ./build/idt/idt.o ./build/idt/idt.asm.o ./build/utils/utils.o ./build/utils/string/string.o ./build/io/io.asm.o ./build/memory/memory.o ./build/memory/heap/heap.o ./build/memory/heap/kheap.o ./build/memory/paging/paging.o ./build/memory/paging/paging.asm.o ./build/disk/disk.o ./build/disk/disk_stream.o
 
 
-all: ./bin/boot.bin ./bin/kernel/bin
+all: create_build_dir ./bin/boot.bin ./bin/kernel/bin 
 	rm -rf ./bin/os.bin
 	dd if=./bin/boot.bin >> ./bin/os.bin
 	dd if=./bin/kernel.bin >> ./bin/os.bin
 	dd if=/dev/zero bs=512 count=100 >> ./bin/os.bin
+
+create_build_dir: 
+	mkdir bin/
+	mkdir build/
+	mkdir build/boot/
+	mkdir build/kernel/
+	mkdir build/utils/
+	mkdir build/utils/string/
+	mkdir build/vga/
+	mkdir build/idt/
+	mkdir build/io/
+	mkdir build/disk/
+	mkdir build/fs/
+	mkdir build/memory/
+	mkdir build/memory/heap/
+	mkdir build/memory/paging/
 
 ./bin/boot.bin : ./src/boot/boot.asm
 	nasm -f bin $^ -o $@
@@ -72,16 +88,7 @@ all: ./bin/boot.bin ./bin/kernel/bin
 
 
 clean:
-	rm -rf bin/*
-	rm -rf $(FILES)
-	rm -rf build/kernelfull.o
-	rm -rf build/kernel/*
-	rm -rf build/vga/*
-	rm -rf build/idt/*
-	rm -rf build/io/*
-	rm -rf build/disk/*
-	rm -rf build/memory/*.o
-	rm -rf build/memory/heap/*	
-	rm -rf build/memory/paging/*
-	rm -rf build/utils.o
-	
+	rm -rf bin
+	rm -rf build
+
+
