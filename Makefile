@@ -74,6 +74,7 @@ all: ./bin/boot.bin ./bin/kernel/bin
 clean:
 	rm -rf bin/*
 	rm -rf $(FILES)
+	rm -rf build/kernelfull.o
 	rm -rf build/kernel/*
 	rm -rf build/vga/*
 	rm -rf build/idt/*
