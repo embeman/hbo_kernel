@@ -11,9 +11,14 @@ all: create_build_dir ./bin/boot.bin ./bin/kernel/bin
 	rm -rf ./bin/os.bin
 	dd if=./bin/boot.bin >> ./bin/os.bin
 	dd if=./bin/kernel.bin >> ./bin/os.bin
-	dd if=/dev/zero bs=512 count=100 >> ./bin/os.bin
+	dd if=/dev/zero bs=1048576 count=16 >> ./bin/os.bin
+	# mount os.bin to /mnt/d and copy from root -> /mnt/d
+	sudo mount -t vfat ./bin/os.bin /mnt/d
+	# copies files to system directory 
+	sudo cp root/hello_world.txt /mnt/d
+	sudo umount /mnt/d
 
-create_build_dir: 
+create_build_dir:  
 	mkdir bin/
 	mkdir build/
 	mkdir build/boot/

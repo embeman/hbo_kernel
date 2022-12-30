@@ -54,8 +54,6 @@ int disk_read_block(struct disk* idisk ,int lba , int total , void* buf){
     {
         return -EINVARG;
     }
-    
-
     return disk_read_sector(lba,total,buf);
 }
 
