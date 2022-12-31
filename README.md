@@ -15,3 +15,5 @@ Simply run the following commands <br />
 
 
 
+http://www.tavi.co.uk/phobos/fat.html
+https://fromthegroundupmyway.blogspot.com/2020/10/it-is-time-to-look-into-fat.html
