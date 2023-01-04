@@ -4,32 +4,38 @@ BITS 16
 CODE_SEG equ gdt_code - gdt_start
 DATA_SEG equ gdt_data - gdt_start
 
-jmp short start
-nop
+;; Start OF BPB ( Bios Parameter Block )
 
-; FAT16 Header
-OEMIdentifier           db 'HBO_OS  '
+jmp short start         ;; 2 byte
+nop                     ;; 1 byte
+
+; FAT16 Header ( Primary )
+OEMIdentifier           db 'HBO_OS ',0      ;; 
 BytesPerSector          dw 0x200            ;; 512 byte per sector it is not configurable it is just how disk works
 SectorsPerCluster       db 0x80             ;; how many sector per cluster ( decimal : 128 )
-ReservedSectors         dw 200              ;; 200 sectors reserved for our kernel in the disk 
-FATCopies               db 0x02             ;; 
-RootDirEntries          dw 0x40
-NumSectors              dw 0x00
+ReservedSectors         dw 200              ;; 200 sectors reserved for our kernel size in the disk 200 * 512 = 102400 Byte 
+FATCopies               db 0x02             ;; Number of File Allocation Tables (FAT's) on the storage media. Often this value is 2.
+RootDirEntries          dw 0x40             ;; Number of root directory entries (must be set so that the root directory occupies entire sectors).
+NumSectors              dw 0            
 MediaType               db 0xF8
-SectorsPerFat           dw 0x100
+SectorsPerFat           dw 0x100            ;; 256 sector per fat
 SectorsPerTrack         dw 0x20
 NumberOfHeads           dw 0x40
 HiddenSectors           dd 0x00
-SectorsBig              dd 0x773594
+SectorsBig              dd 0x773594         ;; total number of sector is stored here because NumSectors = 51200  ,  sector  , 26214400 byte =~ 25Mb
 
-; Extended BPB (Dos 4.0)
+; FAT16 Header ( Extended )
 DriveNumber             db 0x80
 WinNTBit                db 0x00
 Signature               db 0x29
 VolumeID                dd 0xD105
-VolumeIDString          db 'HBO_OS     '
-SystemIDString          db 'FAT16   '
+VolumeIDString          db 'HBO_OS    ',0       ;; 11 byte
+SystemIDString          db 'FAT16  ',0          ;; 8 byte
 
+;; End OF BPB ( Biod Parameter Block )
+
+
+;; Start Of Boot Record ( Bootloader )
 
 start:
     cli ; Clear Interrupts
@@ -37,18 +43,19 @@ start:
     mov ds, ax
     mov es, ax
     mov ss, ax
-    mov sp, 0x7c00
+    mov sp, 0x7c00      ;; Set Up StackPOinter
     sti ; Enables Interrupts
 
 .load_protected:
     cli
-    lgdt[gdt_descriptor]
+    lgdt[gdt_descriptor]    ;; Loading Global Descriptor Table
     mov eax, cr0
     or eax, 0x1
     mov cr0, eax
     jmp CODE_SEG:load32
     
-; GDT
+; Start Global Descriptor Table
+
 gdt_start:
 gdt_null:
     dd 0x0
@@ -77,12 +84,13 @@ gdt_end:
 gdt_descriptor:
     dw gdt_end - gdt_start-1
     dd gdt_start
+; Start Global Descriptor Table
  
- [BITS 32]
- load32:
+[BITS 32]
+load32:
     mov eax, 1
-    mov ecx, 100
-    mov edi, 0x0100000
+    mov ecx, 100            ;; reading 100 sector to s-ram
+    mov edi, 0x0100000      ;; store 100 sector to address 0x100000 ( this is the start address of the kernel)
     call ata_lba_read
     jmp CODE_SEG:0x0100000
 

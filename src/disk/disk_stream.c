@@ -16,7 +16,6 @@ struct disk_stream* diskstream_new(int disk_id){
     return streamer;
 }
 
-
 int diskstreamer_seek(struct disk_stream* streamer , int pos)
 {
     streamer->pos = pos;
@@ -24,6 +23,9 @@ int diskstreamer_seek(struct disk_stream* streamer , int pos)
 }
 
 // total = total bytes to read
+/**
+ * Reading <total> number of bytes from disk streamer <streamer> to <out> 
+*/
 int diskstreamer_read(struct disk_stream* streamer , int total , void* out){
 
     int sector = streamer->pos / KERNEL_DISK_SECTOR_SIZE;

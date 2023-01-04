@@ -81,6 +81,12 @@ void print(const char* str){
     terminal_write_string(str , VGA_WHITE);
 }
 
+void println(const char* str){
+    // TODO : using colors to print to screen
+    terminal_write_string(str , VGA_WHITE);
+    terminal_write_char('\n' , VGA_WHITE);
+}
+
 void print_log(const char* str){
     terminal_write_string(str , VGA_GREEN);
 }
@@ -96,6 +102,7 @@ void print_error(const char* str){
 void printc(const char _c){
     terminal_write_char(_c,VGA_WHITE);
 }
+
 
 void vga_init(){
     terminal_init();

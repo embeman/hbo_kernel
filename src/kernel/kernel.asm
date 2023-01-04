@@ -33,7 +33,7 @@ _start:
     out 0x21 , al   
     ; End of Remap the master PIC
 
-
+    ;; jump to C
     call kernel_main
     jmp $
 
