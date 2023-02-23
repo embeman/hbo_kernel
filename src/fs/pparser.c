@@ -16,7 +16,7 @@ static int pathparser_get_drive_by_path(const char** filename){
     {
         return -EBADPATH;
     }
-    int drive_num = char_to_num(*filename[0]);
+    int drive_num = char_to_digit(*filename[0]);
 
     // add 3 byte to skip number
     *filename += 3;

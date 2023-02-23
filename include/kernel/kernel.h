@@ -5,6 +5,7 @@
 
 void kernel_main();
 
+void panic(const char* msg);
 
 
 #endif

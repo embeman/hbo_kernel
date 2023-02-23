@@ -36,7 +36,6 @@ SystemIDString          db 'FAT16  ',0          ;; 8 byte
 
 
 ;; Start Of Boot Record ( Bootloader )
-
 start:
     cli ; Clear Interrupts
     mov ax, 0x00
@@ -85,7 +84,7 @@ gdt_descriptor:
     dw gdt_end - gdt_start-1
     dd gdt_start
 ; Start Global Descriptor Table
- 
+
 [BITS 32]
 load32:
     mov eax, 1

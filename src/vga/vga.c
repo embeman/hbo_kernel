@@ -49,7 +49,6 @@ static void terminal_init(){
     }
 }
 
-
 static void terminal_write_char(char c, char colour){
 
     if(c == '\n'){
@@ -101,6 +100,28 @@ void print_error(const char* str){
 
 void printc(const char _c){
     terminal_write_char(_c,VGA_WHITE);
+}
+
+void print_num(uint32_t num){
+    // TODO : print number to screen
+    char str[10];
+    int i , rem , len=0;
+    uint32_t n = num;
+    // find len of the number
+    while (n !=0){
+        len++;
+        n /= 10;
+    }
+
+    for (i = 0; i < len; i++)
+    {
+        rem = num % 10;
+        num = num / 10;
+        str[len - (i + 1) ] = rem + '0';
+    }
+    str[len] = '\0';
+    print(str);
+
 }
 
 

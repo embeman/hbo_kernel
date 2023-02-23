@@ -25,12 +25,14 @@ size_t strnlen(const char* str , int max){
 
 
 bool is_digit(char c){
-    return ( c >= 48 ) && ( c <= 57 ); 
+    return ( c >= '0' ) && ( c <= '9' ); 
 }
 
-uint8_t char_to_num(char c){
-    return c - 48;
+uint8_t char_to_digit(char c){
+    return c - '0';
 }
 
-
+char num_to_digit(uint8_t num){
+    return (char)(num + '0');
+}
 

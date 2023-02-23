@@ -5,5 +5,6 @@
 int fs_init();
 void open();
 void read();
+void write();
 
 #endif

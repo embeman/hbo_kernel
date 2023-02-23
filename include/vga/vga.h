@@ -13,5 +13,6 @@ void print_warning(const char* str);
 void print_error(const char* str);
 
 void printc(const char _c);
+void print_num(uint32_t num);
 void vga_init();
 #endif
