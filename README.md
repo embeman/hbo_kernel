@@ -17,7 +17,8 @@ Simply run the following commands <br />
 
 http://www.tavi.co.uk/phobos/fat.html     <br />
 https://fromthegroundupmyway.blogspot.com/2020/10/it-is-time-to-look-into-fat.html      <br />
-
+https://www.cprogramming.com/tutorial/c/lesson17.html <br /> 
+https://www.youtube.com/watch?v=GE7iO2vlLD4&t=2108s <br />
 
 
 
